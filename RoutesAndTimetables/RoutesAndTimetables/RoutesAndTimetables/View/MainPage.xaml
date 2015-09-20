@@ -3,43 +3,39 @@
 	         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ui="clr-namespace:RoutesAndTimetables.Ui"
              x:Name="page"
-             xmlns:controls="clr-namespace:BraviQuestsUI.Controls"
 	         x:Class="RoutesAndTimetables.Ui.View.MainPage">
   <ScrollView>
     <AbsoluteLayout x:Name="absolutelayout">
-      <RelativeLayout x:Name="RootLayout">
-        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"
+            <RelativeLayout x:Name="RootLayout">
+                <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"
                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Width, Factor=0.45}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Height, Factor=0.2}"
                     />
-        <StackLayout
+                <StackLayout 
                     RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=X, Factor=1}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Y, Factor=1}"
                     
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Width, Factor=1}"
-                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Height, Factor=1}">
-            
-                    <SearchBar Placeholder="Search a Route" Text="{Binding Query}" SearchButtonPressed="OnSearchButtonPressed" />
-                    <ListView ItemsSource="{Binding Routes}" HasUnevenRows="True" SelectedItem="{Binding SelectedRoute}" ItemTapped="RouteTapped">
-            <ListView.ItemTemplate>
-              <DataTemplate>
-                <ViewCell>
-                  <StackLayout HorizontalOptions="StartAndExpand">
-                    <StackLayout Padding="0,10">
-                        <Label Text="{Binding ShortName}" />
-                        <Label Text="{Binding LongName}" FontSize="Large" FontAttributes="Bold" />
-                    </StackLayout>
-                  </StackLayout>
-                </ViewCell>
-              </DataTemplate>
-            </ListView.ItemTemplate>
-          </ListView>
-        </StackLayout>
-      </RelativeLayout>
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Height, Factor=1}"
+                    >
 
-      
-
-
-    </AbsoluteLayout>
+                    <SearchBar Placeholder="Search a Route" Text="{Binding Query}" SearchCommand="{Binding RefreshCommand}" />
+                    <ListView ItemsSource="{Binding Routes}" HasUnevenRows="True" SelectedItem="{Binding SelectedRoute}" ItemTapped="RouteTapped" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsLoading}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="StartAndExpand">
+                                        <StackLayout Padding="0,10">
+                                            <Label Text="{Binding ShortName}" />
+                                            <Label Text="{Binding LongName}" FontSize="Large" FontAttributes="Bold" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </RelativeLayout>
+        </AbsoluteLayout>
   </ScrollView>
 </ContentPage>

@@ -16,18 +16,29 @@ namespace RoutesAndTimetables.Business.Services
         public RoutesService()
         {
             client = new RestClient(@"https://api.appglu.com/v1/queries/");
-            client.AddDefaultHeader("X-AppGlu-Environment", "staging");
             client.Authenticator = new RestSharp.Authenticators.HttpBasicAuthenticator("WKD4N7YMA1uiM8V", "DtdTtzMLQlA0hk2C1Yi5pLyVIlAQ68");
-            client.AddDefaultHeader("content-type", "application/json");
+        }
+        private void AddHeaders(RestRequest request)
+        {
+            request.AddHeader("X-AppGlu-Environment", "staging");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Cache-Control", "no-cache");
         }
 
-        public Route[] GetRoutes(string stopName = "")
+        public List<Route> GetRoutes(string stopName = "")
         {
-            string request = FindRoutesByStopNameRequest.Replace("{0}", stopName);
-            var response = client.Post<FindRoutesByStopNameResponse>(new RestRequest("findRoutesByStopName/run"));
+            string requestBody = FindRoutesByStopNameRequest.Replace("{0}", stopName);
+            RestRequest request = new RestRequest("findRoutesByStopName/run");
+            AddHeaders(request);
 
-            if (response.Data == null) return new Route[] { };
-            return response.Data.Rows;
+            request.AddJsonBody(new { @params = new { stopName = string.Format("%{0}%", stopName)} });
+
+            var response = client.Post<FindRoutesByStopNameResponse>(request);
+            
+            if (response.Data!=null)    
+                return response.Data.Rows ?? new List<Route>();
+
+            return new List<Route>();
         }
     }
 }

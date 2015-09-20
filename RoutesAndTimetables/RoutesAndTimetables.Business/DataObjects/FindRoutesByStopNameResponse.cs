@@ -12,6 +12,6 @@ namespace RoutesAndTimetables.Business.DataObjects
         [DeserializeAs(Name = "rowsAffected")]
         public int RowsAffected { get; set; }
         [DeserializeAs(Name = "rows")]
-        public Route[] Rows { get; set; }
+        public List<Route> Rows { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using RoutesAndTimetables.Business.ViewModels;
+﻿using RoutesAndTimetables.Business.ViewModels;
 using RoutesAndTimetables.Ui.Services;
 using System;
 using System.Windows.Input;
@@ -24,7 +23,7 @@ namespace RoutesAndTimetables.Ui.View
 
         private void OnSearchButtonPressed(object sender, EventArgs args)
         {
-
+            (BindingContext as MainPageViewModel).RefreshCommand.Execute(null);
         }
     }
 }
