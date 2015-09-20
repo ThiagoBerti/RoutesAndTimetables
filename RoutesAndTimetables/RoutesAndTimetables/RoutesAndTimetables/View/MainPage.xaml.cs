@@ -1,4 +1,5 @@
-﻿using RoutesAndTimetables.Business.ViewModels;
+﻿using RoutesAndTimetables.Business.DataObjects;
+using RoutesAndTimetables.Business.ViewModels;
 using RoutesAndTimetables.Ui.Services;
 using System;
 using System.Windows.Input;
@@ -18,7 +19,7 @@ namespace RoutesAndTimetables.Ui.View
 
         private void RouteTapped(object sender, ItemTappedEventArgs e)
         {
-            //(BindingContext as BraviQuests.ViewModels.MainPageViewModel).QuestTappedCommand.Execute(e.Item as BraviQuests.DataObjects.Quest);
+            (BindingContext as MainPageViewModel).RouteTappedCommand.Execute(e.Item as Route);
         }
 
         private void OnSearchButtonPressed(object sender, EventArgs args)

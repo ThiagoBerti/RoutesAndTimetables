@@ -10,7 +10,6 @@ namespace RoutesAndTimetables.Business.Services
 {
     public class RoutesService
     {
-        const string FindRoutesByStopNameRequest = "{ \"params\": { \"stopName\": \"%{0}%\" } }";
         private RestClient client;
 
         public RoutesService()
@@ -25,9 +24,8 @@ namespace RoutesAndTimetables.Business.Services
             request.AddHeader("Cache-Control", "no-cache");
         }
 
-        public List<Route> GetRoutes(string stopName = "")
+        public async Task<List<Route>> GetRoutes(string stopName = "")
         {
-            string requestBody = FindRoutesByStopNameRequest.Replace("{0}", stopName);
             RestRequest request = new RestRequest("findRoutesByStopName/run");
             AddHeaders(request);
 
@@ -39,6 +37,36 @@ namespace RoutesAndTimetables.Business.Services
                 return response.Data.Rows ?? new List<Route>();
 
             return new List<Route>();
+        }
+
+        public async Task<List<Stop>> GetStops(int id)
+        {
+            RestRequest request = new RestRequest("findStopsByRouteId/run");
+            AddHeaders(request);
+
+            request.AddJsonBody(new { @params = new { routeId = id } });
+
+            var response = client.Post<FindStopsByRouteIdResponse>(request);
+
+            if (response.Data != null)
+                return response.Data.Rows ?? new List<Stop>();
+
+            return new List<Stop>();
+        }
+
+        public async Task<List<Departure>> GetDepartures(int id)
+        {
+            RestRequest request = new RestRequest("findDeparturesByRouteId/run");
+            AddHeaders(request);
+
+            request.AddJsonBody(new { @params = new { routeId = id } });
+
+            var response = client.Post<FindDeparturesByRouteIdResponse>(request);
+
+            if (response.Data != null)
+                return response.Data.Rows ?? new List<Departure>();
+
+            return new List<Departure>();
         }
     }
 }

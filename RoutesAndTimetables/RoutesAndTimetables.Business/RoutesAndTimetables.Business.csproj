@@ -35,8 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataObjects\Departure.cs" />
+    <Compile Include="DataObjects\FindDeparturesByRouteIdResponse.cs" />
     <Compile Include="DataObjects\FindRoutesByStopNameResponse.cs" />
+    <Compile Include="DataObjects\FindStopsByRouteIdResponse.cs" />
     <Compile Include="DataObjects\Route.cs" />
+    <Compile Include="DataObjects\Stop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\RoutesService.cs" />

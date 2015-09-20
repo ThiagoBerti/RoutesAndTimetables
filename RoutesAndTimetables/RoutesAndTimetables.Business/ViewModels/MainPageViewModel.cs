@@ -16,7 +16,8 @@ namespace RoutesAndTimetables.Business.ViewModels
     {
         public MainPageViewModel(INavigationService navigation) : base(navigation)
         {
-            this.RefreshCommand = new Command(Refresh);   
+            this.RefreshCommand = new Command(Refresh);
+            this.RouteTappedCommand = new Command<Route>(RouteTapped);
             this.Query = string.Empty;
             
             this.Refresh(null);
@@ -28,16 +29,16 @@ namespace RoutesAndTimetables.Business.ViewModels
         public Command RefreshCommand { get; set; }
         public Command<Route> RouteTappedCommand { get; set; }
 
-        public void Refresh(object obj)
+        public async void Refresh(object obj)
         {
             this.IsLoading = true;
-            this.Routes = new ObservableCollection<Route>(service.GetRoutes(this.Query));
+            this.Routes = new ObservableCollection<Route>(await service.GetRoutes(this.Query));
             this.IsLoading = false;
         }
 
         private void RouteTapped(Route route)
         {
-            //navigationService.GoToRouteDetails(new RouteDetailsViewModel(navigationService) { Route = route });
+            navigationService.GoToRouteDetails(new RouteDetailsViewModel(navigationService, route));
         }
 
     }

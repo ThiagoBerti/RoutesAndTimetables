@@ -10,7 +10,7 @@ namespace RoutesAndTimetables.Business.DataObjects
     public class Route
     {
         [DeserializeAs(Name="id")]
-        int Id { get; set; }
+        public int Id { get; set; }
         [DeserializeAs(Name = "shortName")]
         public string ShortName { get; set; }
         [DeserializeAs(Name = "longName")]
