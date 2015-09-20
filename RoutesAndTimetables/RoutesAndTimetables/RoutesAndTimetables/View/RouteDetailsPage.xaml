@@ -19,8 +19,11 @@
                             <Label Text="{Binding Route.LongName}" />
                         </StackLayout>
                     </StackLayout>
-                    <Label Text="Stops" FontSize="Large" FontAttributes="Bold" />
-                    <ListView ItemsSource="{Binding Stops}" HasUnevenRows="True" >
+                    <StackLayout Padding="0,10" Orientation="Horizontal">
+                        <Button Text="Stops" FontAttributes="Bold" Command="{Binding ShowStopsCommand}"/>
+                        <Button Text="Departures" FontAttributes="Bold" Command="{Binding ShowDeparturesCommand}" />
+                    </StackLayout>
+                    <ListView ItemsSource="{Binding Stops}" HasUnevenRows="True" IsVisible="{Binding IsShowingStops}" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -35,54 +38,57 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Label Text="Departures" FontSize="Large" FontAttributes="Bold" />
-                    <StackLayout HorizontalOptions="StartAndExpand" >
-                        <Label Text="Weekday" FontSize="Large" FontAttributes="Bold" />
-                        <ListView ItemsSource="{Binding WeeklyDepartures}" HasUnevenRows="True">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <StackLayout HorizontalOptions="StartAndExpand">
-                                            <StackLayout Padding="0,10" Orientation="Horizontal">
-                                                <Label Text="{Binding Time}" />
+                    <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingDepartures}">
+                        <StackLayout Padding="0,10" Orientation="Horizontal">
+                            <Button Text="Weekday" FontAttributes="Bold" Command="{Binding ShowWeekdayCommand}"/>
+                            <Button Text="Saturday" FontAttributes="Bold" Command="{Binding ShowSaturdayCommand}" IsVisible="{Binding HasSaturdayDeparture}" />
+                            <Button Text="Sunday" FontAttributes="Bold" Command="{Binding ShowSundayCommand}" IsVisible="{Binding HasSundayDeparture}" />
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingWeekday}">
+                            <ListView ItemsSource="{Binding WeeklyDepartures}" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <StackLayout Padding="0,10" Orientation="Horizontal">
+                                                    <Label Text="{Binding Time}" />
+                                                </StackLayout>
                                             </StackLayout>
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="StartAndExpand" >
-                        <Label Text="Saturday" FontSize="Large" FontAttributes="Bold" />
-                        <ListView ItemsSource="{Binding SaturdayDepartures}" HasUnevenRows="True">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <StackLayout HorizontalOptions="StartAndExpand">
-                                            <StackLayout Padding="0,10" Orientation="Horizontal">
-                                                <Label Text="{Binding Time}" />
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingSaturday}">
+                            <ListView ItemsSource="{Binding SaturdayDepartures}" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <StackLayout Padding="0,10" Orientation="Horizontal">
+                                                    <Label Text="{Binding Time}" />
+                                                </StackLayout>
                                             </StackLayout>
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="StartAndExpand" >
-                        <Label Text="Sunday" FontSize="Large" FontAttributes="Bold" />
-                        <ListView ItemsSource="{Binding SundayDepartures}" HasUnevenRows="True">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <StackLayout HorizontalOptions="StartAndExpand">
-                                            <StackLayout Padding="0,10" Orientation="Horizontal">
-                                                <Label Text="{Binding Time}" />
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingSunday}" >
+                            <ListView ItemsSource="{Binding SundayDepartures}" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <StackLayout Padding="0,10" Orientation="Horizontal">
+                                                    <Label Text="{Binding Time}" />
+                                                </StackLayout>
                                             </StackLayout>
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </RelativeLayout>
