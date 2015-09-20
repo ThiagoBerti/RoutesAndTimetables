@@ -10,9 +10,6 @@ using Xamarin.Forms;
 
 namespace RoutesAndTimetables.Business.ViewModels
 {
-
-
-
     [PropertyChanged.ImplementPropertyChanged]
     public class RouteDetailsViewModel : BaseViewModel
     {
@@ -24,7 +21,7 @@ namespace RoutesAndTimetables.Business.ViewModels
             this.WeeklyDepartures = new ObservableCollection<Departure>();
             this.SaturdayDepartures = new ObservableCollection<Departure>();
             this.SundayDepartures = new ObservableCollection<Departure>();
-
+            //Kind of had to implement tabs and subtabs by hand.
             this.ShowStopsCommand = new Command(ShowStops, () => !IsShowingStops);
             this.ShowDeparturesCommand = new Command(ShowDepartures, ()=>!IsShowingDepartures);
             this.ShowWeekdayCommand = new Command(ShowWeekday, () => !IsShowingWeekday);
