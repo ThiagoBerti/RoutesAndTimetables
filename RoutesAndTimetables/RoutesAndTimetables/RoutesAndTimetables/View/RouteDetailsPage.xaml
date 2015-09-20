@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:RoutesAndTimetables.Ui"
+             x:Class="RoutesAndTimetables.Ui.View.RouteDetailsPage">
+    <ScrollView>
+        <AbsoluteLayout x:Name="absolutelayout">
+            <RelativeLayout x:Name="RootLayout">
+                <StackLayout 
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=X, Factor=1}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Y, Factor=1}"
+                    
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Width, Factor=1}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView, ElementName=RootLayout, Property=Height, Factor=1}"
+                    >
+                    <StackLayout HorizontalOptions="StartAndExpand">
+                        <StackLayout Padding="0,10">
+                            <Label Text="{Binding Route.ShortName}"  FontSize="Large" FontAttributes="Bold"/>
+                            <Label Text="{Binding Route.LongName}" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Padding="0,10" Orientation="Horizontal">
+                        <Button Text="Stops" FontAttributes="Bold" Command="{Binding ShowStopsCommand}"/>
+                        <Button Text="Departures" FontAttributes="Bold" Command="{Binding ShowDeparturesCommand}" />
+                    </StackLayout>
+                    <ListView ItemsSource="{Binding Stops}" HasUnevenRows="True" IsVisible="{Binding IsShowingStops}" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout HorizontalOptions="StartAndExpand">
+                                        <StackLayout Padding="0,10" Orientation="Horizontal">
+                                            <Label Text="{Binding Sequence}" />
+                                            <Label Text="-" />
+                                            <Label Text="{Binding Name}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingDepartures}">
+                        <StackLayout Padding="0,10" Orientation="Horizontal">
+                            <Button Text="Weekday" FontAttributes="Bold" Command="{Binding ShowWeekdayCommand}"/>
+                            <Button Text="Saturday" FontAttributes="Bold" Command="{Binding ShowSaturdayCommand}" IsVisible="{Binding HasSaturdayDeparture}" />
+                            <Button Text="Sunday" FontAttributes="Bold" Command="{Binding ShowSundayCommand}" IsVisible="{Binding HasSundayDeparture}" />
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingWeekday}">
+                            <ListView ItemsSource="{Binding WeeklyDepartures}" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <StackLayout Padding="0,10" Orientation="Horizontal">
+                                                    <Label Text="{Binding Time}" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingSaturday}">
+                            <ListView ItemsSource="{Binding SaturdayDepartures}" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <StackLayout Padding="0,10" Orientation="Horizontal">
+                                                    <Label Text="{Binding Time}" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="StartAndExpand" IsVisible="{Binding IsShowingSunday}" >
+                            <ListView ItemsSource="{Binding SundayDepartures}" HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout HorizontalOptions="StartAndExpand">
+                                                <StackLayout Padding="0,10" Orientation="Horizontal">
+                                                    <Label Text="{Binding Time}" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </RelativeLayout>
+        </AbsoluteLayout>
+    </ScrollView>
+</ContentPage>
